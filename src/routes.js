@@ -32,4 +32,21 @@ export const routes = [
             return res.writeHead(201).end()
         }
     },
+    {
+        method: 'PUT',
+        url: '/fighters/:id',
+        handler: (req, res) => {
+            const { name, age, belt_graduation, weight, phone } = req.body
+            
+            database.update('fighter', id, {
+                name,
+                age,
+                belt_graduation,
+                weight,
+                phone,
+            })
+
+            return res.writeHead(204).end()
+        }
+    },
 ]

@@ -1,12 +1,13 @@
 import { randomUUID } from 'node:crypto'
 import { DataBase } from './database.js'
+import { buildRoute } from './utils/build-route.js'
 
 const database = new DataBase()
 
 export const routes = [
     {
         method: 'GET',
-        url: '/fighters',
+        url: buildRoute('/fighters'),
         handler: (req, res) => {
             const fighters = database.select('fighter')
             return res.writeHead(200).end(JSON.stringify(fighters))
@@ -15,7 +16,7 @@ export const routes = [
 
     {
         method: 'POST',
-        url: '/fighters',
+        url: buildRoute('/fighters'),
         handler: (req, res) => {
             const { name, age, belt_graduation, weight, phone } = req.body
 
@@ -34,8 +35,9 @@ export const routes = [
     },
     {
         method: 'PUT',
-        url: '/fighters/:id',
+        url: buildRoute('/fighters/:id'),
         handler: (req, res) => {
+            const { id } = req.params
             const { name, age, belt_graduation, weight, phone } = req.body
             
             database.update('fighter', id, {

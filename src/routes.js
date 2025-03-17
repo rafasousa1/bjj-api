@@ -51,4 +51,15 @@ export const routes = [
             return res.writeHead(204).end()
         }
     },
+    {
+        method: 'DELETE',
+        url: buildRoute('/fighters/:id'),
+        handler: (req, res) => {
+            const { id } = req.params
+            
+            database.remove('fighter', id)
+
+            return res.writeHead(204).end()
+        }
+    }
 ]
